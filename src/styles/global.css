@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Baloo Kopi";
+  src: url("/fonts/baloo2-latin.woff2") format("woff2");
+  font-weight: 600 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Jakarta Kopi";
+  src: url("/fonts/jakarta-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@theme {
+  --color-accent: #ff385c;
+  --color-accent-active: #e00b41;
+  --color-accent-tint: #ffe3e8;
+  --color-ink: #241c1a;
+  --color-ink-soft: #6b5d58;
+  --color-canvas: #fffaf5;
+  --color-surface: #f7f0ea;
+  --color-surface-strong: #efe3d9;
+  --color-hairline: #e8ddd0;
+  --color-espresso: #3d2721;
+  --color-espresso-soft: #6b4a3f;
+  --color-cream: #fbf1e6;
+
+  --font-display: "Baloo Kopi", ui-rounded, system-ui, sans-serif;
+  --font-body: "Jakarta Kopi", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --shadow-card: 0 2px 6px rgba(61, 39, 33, 0.06), 0 8px 24px rgba(61, 39, 33, 0.07);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}

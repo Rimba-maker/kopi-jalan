@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import FollowBand from "../components/FollowBand.astro";
+import Footer from "../components/Footer.astro";
+import Hero from "../components/islands/Hero";
+import TodayLocation from "../components/islands/TodayLocation";
+import Menu from "../components/islands/Menu";
+import OurCart from "../components/islands/OurCart";
+import JadwalMingguan from "../components/islands/JadwalMingguan";
+import BookCart from "../components/islands/BookCart";
+import CorporateOrder from "../components/islands/CorporateOrder";
+import Testimonial from "../components/islands/Testimonial";
+
+const [todayEntries, weeklyEntries] = await Promise.all([
+  getCollection("today"),
+  getCollection("weekly"),
+]);
+
+const today = todayEntries[0].data;
+const weekly = weeklyEntries[0].data.days;
+const todayName = today.day.split(",")[0].trim();
+---
+
+<Layout>
+  <Navbar />
+  <Hero client:load />
+  <TodayLocation
+    client:load
+    day={today.day}
+    location={today.location}
+    address={today.address}
+    open={today.open}
+    close={today.close}
+    note={today.note}
+    mapsUrl={today.maps_url}
+  />
+  <Menu client:visible />
+  <OurCart client:visible />
+  <JadwalMingguan client:visible days={weekly} todayName={todayName} />
+  <BookCart client:visible />
+  <CorporateOrder client:visible />
+  <Testimonial client:visible />
+  <FollowBand />
+  <Footer />
+</Layout>

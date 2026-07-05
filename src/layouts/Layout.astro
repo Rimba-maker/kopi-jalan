@@ -1,0 +1,41 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Kopi Jalan — Mobile Coffee Cart | Sewa Cart Event",
+  description = "Kedai kopi keliling. Specialty coffee harga terjangkau, jadwal rutin update harian. Sewa coffee cart untuk wedding, corporate event, bazaar.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="kopi keliling, mobile coffee, coffee cart, sewa coffee cart event, kopi susu murah, coffee cart wedding" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FoodEstablishment",
+      name: "Kopi Jalan",
+      servesCuisine: "Coffee",
+      priceRange: "Rp 12.000 - Rp 25.000",
+    })} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
