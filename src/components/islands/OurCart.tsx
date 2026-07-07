@@ -20,12 +20,12 @@ export default function OurCart() {
 
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-[1.3fr_1fr]">
           <img
-            src="/images/cart-main.jpg"
+            src={import.meta.env.BASE_URL + "images/cart-main.jpg"}
             alt="Cart Kopi Jalan di jalanan"
             className="h-full max-h-[380px] w-full rounded-3xl object-cover shadow-card"
           />
           <img
-            src="/images/cart-barista.jpg"
+            src={import.meta.env.BASE_URL + "images/cart-barista.jpg"}
             alt="Barista Kopi Jalan menyiapkan pesanan"
             className="h-full max-h-[380px] w-full rounded-3xl object-cover shadow-card"
           />

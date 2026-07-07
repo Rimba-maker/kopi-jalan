@@ -52,7 +52,7 @@ export default function BookCart() {
             </p>
           </div>
           <img
-            src="/images/book-event.jpg"
+            src={import.meta.env.BASE_URL + "images/book-event.jpg"}
             alt="Coffee station untuk event dan wedding"
             className="h-[220px] w-full rounded-3xl object-cover shadow-card md:h-[260px]"
           />

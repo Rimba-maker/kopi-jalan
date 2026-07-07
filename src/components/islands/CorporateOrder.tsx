@@ -29,7 +29,7 @@ export default function CorporateOrder() {
             <p className="mt-3 text-ink-soft">Kami datang ke kantormu. Atau kamu order, kami antar.</p>
           </div>
           <img
-            src="/images/corporate-office.jpg"
+            src={import.meta.env.BASE_URL + "images/corporate-office.jpg"}
             alt="Kopi untuk meja kerja kantor"
             className="h-[220px] w-full rounded-3xl object-cover shadow-card md:h-[260px]"
           />

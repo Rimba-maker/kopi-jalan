@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 
+const BASE = import.meta.env.BASE_URL;
+
 interface MenuItem {
   icon: string;
   image?: string;
@@ -12,28 +14,28 @@ const categories: { label: string; items: MenuItem[] }[] = [
   {
     label: "Espresso Based",
     items: [
-      { icon: "☕", image: "/images/menu-kopisusu.jpg", name: "Kopi Susu Kopi Jalan", price: "Rp 18k", badge: "Signature" },
-      { icon: "☕", image: "/images/menu-americano.jpg", name: "Americano", price: "Rp 15k" },
-      { icon: "☕", image: "/images/menu-flatwhite.jpg", name: "Flat White", price: "Rp 20k" },
-      { icon: "☕", image: "/images/menu-cortado.jpg", name: "Cortado", price: "Rp 18k" },
-      { icon: "☕", image: "/images/menu-espresso.jpg", name: "Espresso", price: "Rp 12k" },
-      { icon: "☕", image: "/images/menu-cappuccino.jpg", name: "Cappuccino", price: "Rp 18k" },
+      { icon: "☕", image: BASE + "images/menu-kopisusu.jpg", name: "Kopi Susu Kopi Jalan", price: "Rp 18k", badge: "Signature" },
+      { icon: "☕", image: BASE + "images/menu-americano.jpg", name: "Americano", price: "Rp 15k" },
+      { icon: "☕", image: BASE + "images/menu-flatwhite.jpg", name: "Flat White", price: "Rp 20k" },
+      { icon: "☕", image: BASE + "images/menu-cortado.jpg", name: "Cortado", price: "Rp 18k" },
+      { icon: "☕", image: BASE + "images/menu-espresso.jpg", name: "Espresso", price: "Rp 12k" },
+      { icon: "☕", image: BASE + "images/menu-cappuccino.jpg", name: "Cappuccino", price: "Rp 18k" },
     ],
   },
   {
     label: "Manual Brew — tersedia di spot tertentu",
     items: [
-      { icon: "🫖", image: "/images/menu-pourover.jpg", name: "V60 Pour Over", price: "Rp 25k" },
-      { icon: "🫖", image: "/images/menu-aeropress.jpg", name: "AeroPress", price: "Rp 22k" },
+      { icon: "🫖", image: BASE + "images/menu-pourover.jpg", name: "V60 Pour Over", price: "Rp 25k" },
+      { icon: "🫖", image: BASE + "images/menu-aeropress.jpg", name: "AeroPress", price: "Rp 22k" },
     ],
   },
   {
     label: "Non-Coffee",
     items: [
-      { icon: "🍵", image: "/images/menu-matcha.jpg", name: "Matcha Latte", price: "Rp 22k" },
-      { icon: "🍵", image: "/images/menu-hojicha.jpg", name: "Hojicha Latte", price: "Rp 20k" },
-      { icon: "🍫", image: "/images/menu-chocolate.jpg", name: "Chocolate", price: "Rp 18k" },
-      { icon: "🍋", image: "/images/menu-lemon.jpg", name: "Sparkling Lemon", price: "Rp 15k" },
+      { icon: "🍵", image: BASE + "images/menu-matcha.jpg", name: "Matcha Latte", price: "Rp 22k" },
+      { icon: "🍵", image: BASE + "images/menu-hojicha.jpg", name: "Hojicha Latte", price: "Rp 20k" },
+      { icon: "🍫", image: BASE + "images/menu-chocolate.jpg", name: "Chocolate", price: "Rp 18k" },
+      { icon: "🍋", image: BASE + "images/menu-lemon.jpg", name: "Sparkling Lemon", price: "Rp 15k" },
     ],
   },
 ];

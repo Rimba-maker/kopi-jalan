@@ -68,7 +68,7 @@ export default function Hero() {
           className="overflow-hidden rounded-[28px] shadow-card"
         >
           <img
-            src="/images/hero-cart.jpg"
+            src={import.meta.env.BASE_URL + "images/hero-cart.jpg"}
             alt="Barista menyiapkan kopi di mobile coffee cart"
             className="aspect-[4/3.5] w-full object-cover"
           />
