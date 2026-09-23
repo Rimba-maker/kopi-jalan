@@ -7,9 +7,10 @@ interface Props {
 }
 
 const {
-  title = "Kopi Jalan — Mobile Coffee Cart | Sewa Cart Event",
-  description = "Kedai kopi keliling. Specialty coffee harga terjangkau, jadwal rutin update harian. Sewa coffee cart untuk wedding, corporate event, bazaar.",
+  title = "Kopi Jalan — Kopi Enak, Ketemu di Jalan",
+  description = "Kenalan dengan Kopi Jalan, konsep kedai kopi keliling untuk jeda di tengah rutinitas. Lihat menu, gambaran rute, dan pilihan coffee cart untuk acara.",
 } = Astro.props;
+const ogImage = new URL(`${import.meta.env.BASE_URL}images/social-cover.webp`, Astro.site).href;
 ---
 
 <!doctype html>
@@ -21,19 +22,12 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="kopi keliling, mobile coffee, coffee cart, sewa coffee cart event, kopi susu murah, coffee cart wedding" />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImage} />
 
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FoodEstablishment",
-      name: "Kopi Jalan",
-      servesCuisine: "Coffee",
-      priceRange: "Rp 12.000 - Rp 25.000",
-    })} />
   </head>
   <body>
     <slot />

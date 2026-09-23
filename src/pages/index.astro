@@ -1,47 +1,161 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/Navbar.astro";
-import FollowBand from "../components/FollowBand.astro";
-import Footer from "../components/Footer.astro";
-import Hero from "../components/islands/Hero";
-import TodayLocation from "../components/islands/TodayLocation";
-import Menu from "../components/islands/Menu";
-import OurCart from "../components/islands/OurCart";
-import JadwalMingguan from "../components/islands/JadwalMingguan";
-import BookCart from "../components/islands/BookCart";
-import CorporateOrder from "../components/islands/CorporateOrder";
-import Testimonial from "../components/islands/Testimonial";
+import Arrow from "../components/Arrow.astro";
 
 const [todayEntries, weeklyEntries] = await Promise.all([
   getCollection("today"),
   getCollection("weekly"),
 ]);
-
 const today = todayEntries[0].data;
-const weekly = weeklyEntries[0].data.days;
-const todayName = today.day.split(",")[0].trim();
+const week = weeklyEntries[0].data.days;
+const image = (name: string) => `${import.meta.env.BASE_URL}images/${name}`;
+const instagram = "https://www.instagram.com/kopijalan.id/";
+
+const menu = [
+  { category: "Espresso & susu", items: [
+    ["Kopi Susu Kopi Jalan", "18k"], ["Americano", "15k"], ["Flat White", "20k"],
+    ["Cortado", "18k"], ["Espresso", "12k"], ["Cappuccino", "18k"],
+  ] },
+  { category: "Seduh pelan", note: "Tersedia di spot tertentu", items: [
+    ["V60 Pour Over", "25k"], ["AeroPress", "22k"],
+  ] },
+  { category: "Bukan kopi", items: [
+    ["Matcha Latte", "22k"], ["Hojicha Latte", "20k"],
+    ["Chocolate", "18k"], ["Sparkling Lemon", "15k"],
+  ] },
+];
+const packages = [
+  { name: "Basic", price: "1,5 jt", guests: "Hingga 50 tamu", details: ["1 cart + 1 barista", "3 jam penyajian", "Espresso & non-kopi", "Pesan minimal H-3"] },
+  { name: "Standard", price: "2,8 jt", guests: "Hingga 150 tamu", details: ["1 cart + 2 barista", "5 jam penyajian", "Termasuk manual brew", "Pesan minimal H-5"] },
+  { name: "Premium", price: "5 jt+", guests: "150 tamu atau lebih", details: ["2 cart + 3 barista", "Hingga 8 jam", "Menu & nama cup khusus", "Pesan minimal H-14"] },
+];
 ---
 
 <Layout>
-  <Navbar />
-  <Hero client:load />
-  <TodayLocation
-    client:load
-    day={today.day}
-    location={today.location}
-    address={today.address}
-    open={today.open}
-    close={today.close}
-    note={today.note}
-    mapsUrl={today.maps_url}
-  />
-  <Menu client:visible />
-  <OurCart client:visible />
-  <JadwalMingguan client:visible days={weekly} todayName={todayName} />
-  <BookCart client:visible />
-  <CorporateOrder client:visible />
-  <Testimonial client:visible />
-  <FollowBand />
-  <Footer />
+  <a class="skip-link" href="#main">Langsung ke konten</a>
+  <header class="site-header">
+    <nav class="nav-wrap shell" aria-label="Navigasi utama">
+      <a class="wordmark" href={import.meta.env.BASE_URL} aria-label="Kopi Jalan, kembali ke atas"><span class="brand-mark" aria-hidden="true">kj.</span><span>kopi jalan<span class="wordmark-stop">.</span></span></a>
+      <div class="nav-links">
+        <a href="#menu">Menu</a><a href="#jadwal">Jadwal</a><a href="#cart">Cerita kami</a><a href="#book">Sewa cart</a><a href="#corporate">Kantor</a>
+      </div>
+      <a class="nav-cta" href="#today">Cek titik singgah <Arrow /></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-frame">
+        <div class="hero-copy">
+          <h1 id="hero-title">Kopi enak.<br />Ketemu di<br />jalan.</h1>
+          <p>Kopi keliling yang datang mendekat. Buat jeda kecil di tengah jalanmu.</p>
+          <div class="hero-actions"><a class="button button-dark" href="#today">Cari titik singgah <Arrow /></a><a class="text-link" href="#menu">Lihat menu <Arrow /></a></div>
+        </div>
+        <figure class="hero-stage">
+          <img src={image("coffee-cup-cutout.webp")} alt="Segelas es kopi susu dengan lapisan susu dan es batu" width="555" height="1024" fetchpriority="high" />
+          <figcaption>Foto minuman ilustratif, bukan produk Kopi Jalan.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="today" class="location-section" aria-labelledby="location-title">
+      <div class="location-layout">
+        <figure class="location-photo"><img src={image("jakarta-street.webp")} alt="Orang-orang duduk dan berjalan di kawasan Kota Tua Jakarta" width="1200" height="800" loading="lazy" /></figure>
+        <div class="location-content">
+          <h2 id="location-title">Jalan dulu,<br />ketemu di mana?</h2>
+          <div class="location-board">
+            <div id="location-unconfirmed">
+              <h3>Belum ada titik yang dikonfirmasi hari ini.</h3>
+              <p>Data lokasi terakhir belum diperbarui. Intip rute mingguan sebagai gambaran, lalu konfirmasi lewat Instagram sebelum berangkat.</p>
+              <a href="#jadwal" class="button button-red">Lihat rute mingguan <Arrow /></a>
+            </div>
+            {today.confirmed && (
+              <div id="location-confirmed" hidden data-schedule-date={today.day}>
+                <h3>{today.location}</h3><p>{today.address}</p>
+                <div class="location-meta"><span>{today.day}</span><span>{today.open}–{today.close} WIB</span></div>
+                <p class="location-note">{today.note}</p>
+                <a class="button button-red" href={today.maps_url} target="_blank" rel="noopener noreferrer">Buka Google Maps <Arrow /></a>
+              </div>
+            )}
+            <p class="board-disclaimer">Jadwal diisi manual dan dapat berubah. Konfirmasi sebelum datang.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="menu-section section-space" aria-labelledby="menu-title">
+      <div class="shell">
+        <h2 id="menu-title">Mau ngopi<br />yang mana?</h2>
+        <div class="featured-drinks">
+          <figure class="featured-drink drink-main"><img src={image("menu-kopisusu.jpg")} alt="Es kopi susu dengan es batu di gelas" width="800" height="1200" loading="lazy" /><figcaption><span>Kopi Susu Kopi Jalan</span><strong>Rp 18k</strong></figcaption></figure>
+          <figure class="featured-drink drink-small"><img src={image("menu-americano.jpg")} alt="Segelas kopi americano" width="800" height="800" loading="lazy" /><figcaption><span>Americano</span><strong>Rp 15k</strong></figcaption></figure>
+          <figure class="featured-drink drink-tall"><img src={image("iced-matcha.webp")} alt="Segelas es matcha latte dengan lapisan susu" width="800" height="1200" loading="lazy" /><figcaption><span>Matcha Latte</span><strong>Rp 22k</strong></figcaption></figure>
+        </div>
+        <div class="menu-list">
+          {menu.map((group) => <div class="menu-group"><h3>{group.category}</h3>{group.note && <p class="menu-note">{group.note}</p>}<div class="menu-items">{group.items.map(([name, price]) => <div class="menu-row"><span>{name}</span><span>Rp {price}</span></div>)}</div></div>)}
+        </div>
+        <p class="menu-extras">Oat milk +Rp 5k <span aria-hidden="true">·</span> Extra shot +Rp 8k <span aria-hidden="true">·</span> Tingkat manis bisa bilang langsung ke barista.</p>
+        <p class="small-note">Harga pada halaman ini mengikuti brief menu; pastikan kembali sebelum memesan.</p>
+      </div>
+    </section>
+
+    <section id="cart" class="story-section" aria-labelledby="story-title">
+      <div class="story-stage">
+        <img class="story-photo-main" src={image("street-gathering.webp")} alt="Sekelompok orang menyiapkan minuman saat acara luar ruang di Indonesia" width="1200" height="800" loading="lazy" />
+        <img class="story-photo-side" src={image("street-drinks.webp")} alt="Dua minuman dingin di meja kayu dengan suasana jalanan" width="900" height="1600" loading="lazy" />
+        <div class="story-lead"><h2 id="story-title">Bukan tempat.<br />Ini cara<br />ketemu.</h2><p>Di pinggir jalan, dekat kantor, atau di sela acara: secangkir kopi terasa lebih enak kalau ada waktu buat berhenti sejenak.</p></div>
+      </div>
+      <p class="photo-credit shell">Foto pada halaman ini adalah ilustrasi suasana, bukan dokumentasi cart atau tim Kopi Jalan. Sumber foto baru: Pexels; dua foto menu berasal dari aset stok repo sebelumnya.</p>
+    </section>
+
+    <section id="jadwal" class="schedule-section" aria-labelledby="schedule-title">
+      <div class="shell schedule-layout">
+        <div class="schedule-intro">
+          <h2 id="schedule-title">Rute yang<br />bisa kamu<br />intip.</h2>
+          <p>Daftar ini gambaran rute dalam brief, bukan jadwal operasional yang sudah dikonfirmasi. Konfirmasi titik sebelum datang.</p>
+          <a href={instagram} target="_blank" rel="noopener noreferrer" class="text-link">Lihat Instagram <Arrow /></a>
+          <img src={image("jakarta-street.webp")} alt="Kawasan tempat duduk luar ruang di Kota Tua Jakarta" width="1200" height="800" loading="lazy" />
+        </div>
+        <div class="schedule-days" aria-label="Ilustrasi rute mingguan">
+          <h3>Gambaran rute mingguan</h3>
+          {week.map((entry) => <div class="schedule-day"><span class="schedule-day-name">{entry.day}</span><div class="schedule-where"><strong>{entry.location}</strong><span>{entry.area}</span></div><span class="schedule-hours">{entry.hours === "Varies" ? "Sesuai acara" : entry.hours}</span></div>)}
+        </div>
+      </div>
+      <p class="schedule-bottom shell">Punya titik seru buat dikunjungi? Ceritakan lewat Instagram.</p>
+    </section>
+
+    <section id="book" class="booking-section" aria-labelledby="booking-title">
+      <div class="booking-visual">
+        <img src={image("outdoor-barista.webp")} alt="Barista melayani minuman dari cart kopi luar ruang" width="900" height="1350" loading="lazy" />
+        <div class="booking-copy"><h2 id="booking-title">Bikin acaramu<br />lebih hangat.</h2><p>Dari kumpul kecil sampai perayaan ramai, coffee cart bisa jadi tempat orang berjumpa sambil menunggu seduhan berikutnya.</p><a class="button button-dark" href={instagram} target="_blank" rel="noopener noreferrer">Tanya lewat Instagram <Arrow /></a></div>
+      </div>
+      <div class="shell packages-wrap"><h3>Pilih ruang untuk ceritamu.</h3><div class="package-grid">{packages.map((pkg) => <div class="package"><div class="package-top"><h4>{pkg.name}</h4><span>Mulai Rp {pkg.price}</span></div><p>{pkg.guests}</p><ul>{pkg.details.map((detail) => <li>{detail}</li>)}</ul></div>)}</div><p class="small-note">Paket dan harga ini contoh dari brief, belum penawaran yang terkonfirmasi. Hubungi tim untuk ketersediaan dan harga aktual.</p></div>
+    </section>
+
+    <section id="corporate" class="corporate-section section-space" aria-labelledby="corporate-title">
+      <div class="shell corporate-layout">
+        <div class="corporate-content"><h2 id="corporate-title">Jeda kopi buat<br />satu kantor.</h2><p>Kopi bisa jadi alasan yang pas untuk rehat bareng tim, baik lewat kunjungan cart maupun pesanan banyak gelas.</p><div class="corporate-option"><h3>Kunjungan rutin</h3><p>Cart mampir ke kantor pada hari yang disepakati. Konsep dalam brief: minimum 30 cup per kunjungan.</p></div><div class="corporate-option"><h3>Pesanan banyak gelas</h3><p>Untuk rapat, acara internal, atau hari yang butuh tambahan kopi. Pilih minuman dan jumlah bersama tim.</p></div><a class="text-link" href={instagram} target="_blank" rel="noopener noreferrer">Tanya pesanan kantor <Arrow /></a></div>
+        <figure class="corporate-photo"><img src={image("coffee-pour.webp")} alt="Minuman kopi dingin sedang disiapkan" width="900" height="1200" loading="lazy" /></figure>
+      </div>
+    </section>
+
+    <section class="closing-section" aria-labelledby="closing-title">
+      <div class="shell closing-layout"><div class="closing-content"><h2 id="closing-title">Jalan terus.<br />Ngopi dulu.</h2><p>Belum ketemu di jalan? Simpan halaman ini, cek titik singgah berikutnya, atau ajak kami mampir ke acaramu.</p><div class="closing-actions"><a class="button button-yellow" href="#today">Cek titik singgah <Arrow /></a><a class="text-link" href={instagram} target="_blank" rel="noopener noreferrer">Temukan di Instagram <Arrow /></a></div></div><img src={image("street-drinks.webp")} alt="Dua minuman dingin di meja dengan suasana jalanan" width="900" height="1600" loading="lazy" /></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-main"><a class="footer-brand" href={import.meta.env.BASE_URL}>kopi jalan<span>.</span></a><p>Kedai keliling, teman jeda di tengah perjalanan.</p><nav aria-label="Navigasi footer"><a href="#menu">Menu</a><a href="#jadwal">Jadwal</a><a href="#book">Sewa cart</a><a href="#corporate">Kantor</a><a href={instagram} target="_blank" rel="noopener noreferrer">Instagram <Arrow /></a></nav></div>
+    <div class="shell footer-bottom"><span>© {new Date().getFullYear()} Kopi Jalan</span><span>Dibuat buat hari-hari yang perlu jeda.</span></div>
+  </footer>
+
+  <script is:inline>
+    const formattedToday = new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Jakarta" }).format(new Date());
+    const scheduled = document.getElementById("location-confirmed");
+    if (scheduled?.dataset.scheduleDate?.includes(formattedToday)) {
+      scheduled.hidden = false;
+      document.getElementById("location-unconfirmed").hidden = true;
+    }
+  </script>
 </Layout>

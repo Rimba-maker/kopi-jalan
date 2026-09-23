@@ -4,6 +4,7 @@ import { glob } from "astro/loaders";
 const today = defineCollection({
   loader: glob({ pattern: "today.yaml", base: "./src/content/schedule" }),
   schema: z.object({
+    confirmed: z.boolean(),
     day: z.string(),
     location: z.string(),
     address: z.string(),
