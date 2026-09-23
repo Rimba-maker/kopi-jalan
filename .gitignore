@@ -23,7 +23,12 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# internal docs (not for public repo)
-/docs/archive/211-kedai-kopi-keliling-mobile-PRD.md
-AGENTS.md
-CLAUDE.md
+# Private design and process materials stay in this workspace.
+/DESIGN.md
+/PRODUCT.md
+/.impeccable/
+/docs/
+/AGENTS.md
+/CLAUDE.md
+# Asset provenance belongs outside public/, which Astro publishes unchanged.
+/public/images/*.json
