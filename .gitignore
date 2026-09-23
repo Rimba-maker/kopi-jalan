@@ -24,6 +24,6 @@ pnpm-debug.log*
 .idea/
 
 # internal docs (not for public repo)
-211-kedai-kopi-keliling-mobile-PRD.md
+/docs/archive/211-kedai-kopi-keliling-mobile-PRD.md
 AGENTS.md
 CLAUDE.md

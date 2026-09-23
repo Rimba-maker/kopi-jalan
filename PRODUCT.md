@@ -32,7 +32,7 @@ Nama Kopi Jalan dan suara kasual Indonesia yang ramah, membumi, sedikit ringan. 
 
 ## Evidence on Hand
 
-PRD awal di `211-kedai-kopi-keliling-mobile-PRD.md` adalah arsip usulan dan materi contoh, bukan laporan operasi. Konten aktual berada di `src/pages/index.astro` dan `src/content/schedule/`; catatan provenance sejumlah aset baru berada di sidecar `public/images/*.json`. Testimoni, klaim jumlah cart/tim, serta nama tempat dalam PRD bukan bukti pelanggan atau operasi nyata yang diverifikasi.
+PRD awal di `docs/archive/211-kedai-kopi-keliling-mobile-PRD.md` adalah arsip lokal yang diabaikan Git, bukan laporan operasi. Konten aktual berada di `src/pages/index.astro` dan `src/content/schedule/`; catatan provenance sejumlah aset baru berada di sidecar `public/images/*.json`. Testimoni, klaim jumlah cart/tim, serta nama tempat dalam PRD bukan bukti pelanggan atau operasi nyata yang diverifikasi.
 
 ## Product Principles
 
